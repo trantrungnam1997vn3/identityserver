@@ -1,0 +1,11 @@
+D:\Project\IdentityServer\src\Client-Test\bin\Debug\netcoreapp2.2\Client-Test.deps.json
+D:\Project\IdentityServer\src\Client-Test\bin\Debug\netcoreapp2.2\Client-Test.runtimeconfig.json
+D:\Project\IdentityServer\src\Client-Test\bin\Debug\netcoreapp2.2\Client-Test.runtimeconfig.dev.json
+D:\Project\IdentityServer\src\Client-Test\bin\Debug\netcoreapp2.2\Client-Test.dll
+D:\Project\IdentityServer\src\Client-Test\bin\Debug\netcoreapp2.2\Client-Test.pdb
+D:\Project\IdentityServer\src\Client-Test\obj\Debug\netcoreapp2.2\Client-Test.csprojAssemblyReference.cache
+D:\Project\IdentityServer\src\Client-Test\obj\Debug\netcoreapp2.2\Client-Test.csproj.CoreCompileInputs.cache
+D:\Project\IdentityServer\src\Client-Test\obj\Debug\netcoreapp2.2\Client-Test.AssemblyInfoInputs.cache
+D:\Project\IdentityServer\src\Client-Test\obj\Debug\netcoreapp2.2\Client-Test.AssemblyInfo.cs
+D:\Project\IdentityServer\src\Client-Test\obj\Debug\netcoreapp2.2\Client-Test.dll
+D:\Project\IdentityServer\src\Client-Test\obj\Debug\netcoreapp2.2\Client-Test.pdb

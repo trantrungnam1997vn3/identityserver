@@ -1,5 +1,5 @@
 {
-  "FilePath": "d:\\Project\\IdentityServer\\src\\Client\\Client.csproj",
+  "FilePath": "d:\\Project\\identityserver\\src\\Client\\Client.csproj",
   "Configuration": {
     "ConfigurationName": "MVC-2.1",
     "LanguageVersion": "2.1",
@@ -2988,6 +2988,11 @@
     {
       "FilePath": "Views\\_ViewStart.cshtml",
       "TargetPath": "Views\\_ViewStart.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "Views\\Home\\Json.cshtml",
+      "TargetPath": "Views\\Home\\Json.cshtml",
       "FileKind": "mvc"
     }
   ],

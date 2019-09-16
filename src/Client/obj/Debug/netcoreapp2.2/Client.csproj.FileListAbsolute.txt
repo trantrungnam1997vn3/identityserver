@@ -26,3 +26,4 @@ D:\Project\IdentityServer\src\Client\obj\Debug\netcoreapp2.2\Client.Views.pdb
 D:\Project\IdentityServer\src\Client\obj\Debug\netcoreapp2.2\Client.dll
 D:\Project\IdentityServer\src\Client\obj\Debug\netcoreapp2.2\Client.pdb
 D:\Project\IdentityServer\src\Client\obj\Debug\netcoreapp2.2\Client.csproj.CopyComplete
+D:\Project\identityserver\src\Client\obj\Debug\netcoreapp2.2\Razor\Views\Home\Json.g.cshtml.cs

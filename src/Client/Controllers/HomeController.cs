@@ -15,7 +15,6 @@ namespace Client.Controllers
 {
     public class HomeController : Controller
     {
-        [Authorize]
         public IActionResult Index()
         {
             return View();
@@ -43,10 +42,17 @@ namespace Client.Controllers
             var accessToken = await HttpContext.GetTokenAsync("access_token");
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            var context = await client.GetStringAsync("http://localhost:5001/identity");
-
-            ViewBag.Json = JArray.Parse(context).ToString();
-            return View("json");
+            try
+            {
+                var context = await client.GetStringAsync("http://localhost:5001/identity");
+                ViewBag.Json = JArray.Parse(context).ToString();
+                return View("json");
+            }
+            catch
+            {
+                ViewData["Message"] = "Unauthorized please login again !!!";
+                return View("Error");
+            }
         }
     }
 }

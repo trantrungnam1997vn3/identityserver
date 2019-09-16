@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Project\\IdentityServer\\src\\IdentityServer\\IdentityServer.csproj": {}
+    "D:\\Project\\identityserver\\src\\IdentityServer\\IdentityServer.csproj": {}
   },
   "projects": {
-    "D:\\Project\\IdentityServer\\src\\IdentityServer\\IdentityServer.csproj": {
+    "D:\\Project\\identityserver\\src\\IdentityServer\\IdentityServer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Project\\IdentityServer\\src\\IdentityServer\\IdentityServer.csproj",
+        "projectUniqueName": "D:\\Project\\identityserver\\src\\IdentityServer\\IdentityServer.csproj",
         "projectName": "IdentityServer",
-        "projectPath": "D:\\Project\\IdentityServer\\src\\IdentityServer\\IdentityServer.csproj",
-        "packagesPath": "C:\\Users\\NamTran\\.nuget\\packages\\",
-        "outputPath": "D:\\Project\\IdentityServer\\src\\IdentityServer\\obj\\",
+        "projectPath": "D:\\Project\\identityserver\\src\\IdentityServer\\IdentityServer.csproj",
+        "packagesPath": "C:\\Users\\Nam\\.nuget\\packages\\",
+        "outputPath": "D:\\Project\\identityserver\\src\\IdentityServer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\NamTran\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Nam\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.1"

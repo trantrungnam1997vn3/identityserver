@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Project\\IdentityServer\\src\\Api\\Api.csproj": {}
+    "D:\\Project\\identityserver\\src\\Api\\Api.csproj": {}
   },
   "projects": {
-    "D:\\Project\\IdentityServer\\src\\Api\\Api.csproj": {
+    "D:\\Project\\identityserver\\src\\Api\\Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Project\\IdentityServer\\src\\Api\\Api.csproj",
+        "projectUniqueName": "D:\\Project\\identityserver\\src\\Api\\Api.csproj",
         "projectName": "Api",
-        "projectPath": "D:\\Project\\IdentityServer\\src\\Api\\Api.csproj",
-        "packagesPath": "C:\\Users\\NamTran\\.nuget\\packages\\",
-        "outputPath": "D:\\Project\\IdentityServer\\src\\Api\\obj\\",
+        "projectPath": "D:\\Project\\identityserver\\src\\Api\\Api.csproj",
+        "packagesPath": "C:\\Users\\Nam\\.nuget\\packages\\",
+        "outputPath": "D:\\Project\\identityserver\\src\\Api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\NamTran\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Nam\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.2"

@@ -1,4 +1,6 @@
-﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
+﻿using System.Security.Cryptography;
+using System.IO;
+// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
@@ -28,11 +30,10 @@ namespace IdentityServer
 
         public void ConfigureServices(IServiceCollection services)
         {
-            // uncomment, if you want to add an MVC-based UI
-            services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_1);
+            services.AddMvc();
 
             const string connectionString = @"
-                Data Source=DESKTOP-7ML2D8L;
+                Data Source=DESKTOP-999UR4G;
                 Database=IdentityServer4;
                 User ID=sa;
                 Password=sapassword;
@@ -42,21 +43,18 @@ namespace IdentityServer
 
             var builder = services.AddIdentityServer()
                 .AddTestUsers(Config.GetUsers())
-                // this adds the config data from DB (clients, resources)
                 .AddConfigurationStore(options =>
                 {
                     options.ConfigureDbContext = b =>
                         b.UseSqlServer(connectionString,
                             sql => sql.MigrationsAssembly(migrationsAssembly));
                 })
-                // this adds the operational data from DB (codes, tokens, consents)
                 .AddOperationalStore(options =>
                 {
                     options.ConfigureDbContext = b =>
                         b.UseSqlServer(connectionString,
                             sql => sql.MigrationsAssembly(migrationsAssembly));
 
-                    // this enables automatic token cleanup. this is optional.
                     options.EnableTokenCleanup = true;
                 });
 
@@ -81,14 +79,20 @@ namespace IdentityServer
             //             };
             //         });
 
-            if (Environment.IsDevelopment())
-            {
-                builder.AddDeveloperSigningCredential();
-            }
-            else
-            {
-                throw new Exception("need to configure key material");
-            }
+            // if (Environment.IsDevelopment())
+            // {
+            builder.AddDeveloperSigningCredential();
+            // }
+            // else
+            // {
+            //     // throw new Exception("need to configure key material");
+            //     Console.WriteLine(Environment.WebRootPath);
+            //     var fileName = Path.Combine(Environment.WebRootPath, "tempkey.rsa");
+            //     if (!File.Exists(fileName))
+            //     {
+            //         builder.AddSigningCredential(fileName);
+            //     }
+            // }
         }
 
         public void Configure(IApplicationBuilder app)
@@ -109,6 +113,8 @@ namespace IdentityServer
             {
                 var context = serviceScope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
                 context.Database.Migrate();
+                var grantContext = serviceScope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>();
+                grantContext.Database.Migrate();
                 if (!context.Clients.Any())
                 {
                     foreach (var client in Config.GetClients())
@@ -116,6 +122,30 @@ namespace IdentityServer
                         context.Clients.Add(client.ToEntity());
                     }
                     context.SaveChanges();
+                }
+                else
+                {
+                    foreach (var client in Config.GetClients())
+                    {
+                        var item = context.Clients
+                            .Include(x => x.RedirectUris)
+                            .Include(x => x.PostLogoutRedirectUris)
+                            .Include(x => x.ClientSecrets)
+                            .Include(x => x.Claims)
+                            .Include(x => x.AllowedScopes)
+                            .Include(x => x.AllowedCorsOrigins)
+                            .Include(x => x.AllowedGrantTypes)
+                            .Where(c => c.ClientId == client.ClientId).FirstOrDefault();
+
+                        if (item != null)
+                        {
+                            context.Clients.Remove(item);
+                        }
+
+                        context.Clients.Add(client.ToEntity());
+                    }
+                    context.SaveChanges();
+
                 }
                 if (!context.IdentityResources.Any())
                 {
@@ -125,10 +155,37 @@ namespace IdentityServer
                     }
                     context.SaveChanges();
                 }
+                else
+                {
+                    foreach (var resource in Config.GetIdentityResources())
+                    {
+                        var item = context.IdentityResources.Where(c => c.Name == resource.Name).FirstOrDefault();
+                        if (item != null)
+                        {
+                            context.IdentityResources.Remove(item);
+                        }
+                        context.IdentityResources.Add(resource.ToEntity());
+                    }
+
+                    context.SaveChanges();
+                }
                 if (!context.ApiResources.Any())
                 {
                     foreach (var resource in Config.GetApis())
                     {
+                        context.ApiResources.Add(resource.ToEntity());
+                    }
+                    context.SaveChanges();
+                }
+                else
+                {
+                    foreach (var resource in Config.GetApis())
+                    {
+                        var item = context.ApiResources.Where(x => x.Name == resource.Name).FirstOrDefault();
+                        if (item != null)
+                        {
+                            context.ApiResources.Remove(item);
+                        }
                         context.ApiResources.Add(resource.ToEntity());
                     }
                     context.SaveChanges();

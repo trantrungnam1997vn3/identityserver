@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Cryptography.X509Certificates;
 
 namespace IdentityServer
 {
@@ -33,7 +34,7 @@ namespace IdentityServer
             services.AddMvc();
 
             const string connectionString = @"
-                Data Source=DESKTOP-999UR4G;
+                Data Source=DESKTOP-7ML2D8L;
                 Database=IdentityServer4;
                 User ID=sa;
                 Password=sapassword;
@@ -81,18 +82,35 @@ namespace IdentityServer
 
             // if (Environment.IsDevelopment())
             // {
-            builder.AddDeveloperSigningCredential();
+            //     builder.AddDeveloperSigningCredential();
             // }
             // else
             // {
-            //     // throw new Exception("need to configure key material");
-            //     Console.WriteLine(Environment.WebRootPath);
-            //     var fileName = Path.Combine(Environment.WebRootPath, "tempkey.rsa");
-            //     if (!File.Exists(fileName))
-            //     {
-            //         builder.AddSigningCredential(fileName);
-            //     }
-            // }
+                X509Certificate2 cert = null;
+                using (var certStore = new X509Store(StoreName.My, StoreLocation.CurrentUser))
+                {
+                    certStore.Open(OpenFlags.ReadOnly);
+                    var certCollection = certStore.Certificates.Find(
+                        X509FindType.FindByThumbprint,
+                        "4de78e03756e7f4ba4c583ad7d7de17a3f9f5490", // Change this with the thumbprint of your certifiacte
+                        false);
+
+                    if (certCollection.Count > 0)
+                    {
+                        cert = certCollection[0];
+                    }
+                // }// throw new Exception("need to configure key material");
+                 // if (cert == null)
+                 // {
+                 //     // If the certificate is not installed, you might be in development and want to ise the developer credebntials
+                 //     services.AddIdentityServer()
+                 //         .AddDeveloperSigningCredential();
+                 // }
+                 // else
+                 // {
+                builder.AddSigningCredential(cert);
+                // }
+            }
         }
 
         public void Configure(IApplicationBuilder app)

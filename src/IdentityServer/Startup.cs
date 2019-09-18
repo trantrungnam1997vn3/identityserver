@@ -18,28 +18,26 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Cryptography.X509Certificates;
+using Microsoft.Extensions.Configuration;
 
 namespace IdentityServer
 {
     public class Startup
     {
         public IHostingEnvironment Environment { get; }
+        public IConfiguration Configuration { get; }
 
-        public Startup(IHostingEnvironment environment)
+        public Startup(IHostingEnvironment environment, IConfiguration configuration)
         {
             Environment = environment;
+            Configuration = configuration;
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
 
-            const string connectionString = @"
-                Data Source=DESKTOP-7ML2D8L;
-                Database=IdentityServer4;
-                User ID=sa;
-                Password=sapassword;
-                ";
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
 
 
@@ -60,40 +58,19 @@ namespace IdentityServer
                     options.EnableTokenCleanup = true;
                 });
 
-
-            // JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
-
-            // services.AddAuthentication()
-            //     .AddOpenIdConnect("oidc", "OpenID Connect", options =>
-            //         {
-            //             options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
-            //             options.SignOutScheme = IdentityServerConstants.SignoutScheme;
-            //             options.SaveTokens = true;
-            //             options.RequireHttpsMetadata = false;
-
-            //             options.Authority = "http://localhost:5000";
-            //             options.ClientId = "implicit";
-
-            //             options.TokenValidationParameters = new TokenValidationParameters
-            //             {
-            //                 NameClaimType = "name",
-            //                 RoleClaimType = "role"
-            //             };
-            //         });
-
-            // if (Environment.IsDevelopment())
-            // {
-            //     builder.AddDeveloperSigningCredential();
-            // }
-            // else
-            // {
+            if (Environment.IsDevelopment())
+            {
+                builder.AddDeveloperSigningCredential();
+            }
+            else
+            {
                 X509Certificate2 cert = null;
                 using (var certStore = new X509Store(StoreName.Root, StoreLocation.LocalMachine))
-                 
+                {
                     certStore.Open(OpenFlags.ReadOnly);
                     var certCollection = certStore.Certificates.Find(
                         X509FindType.FindByThumbprint,
-                        "1a6712fc72aa71224676373d3bcc5ce9ca1f2fb8",
+                        Configuration.GetConnectionString("Thumbprint-Key"),
                         false
                     );
 
@@ -102,12 +79,12 @@ namespace IdentityServer
                         cert = certCollection[0];
                     }
                 }
-                
+
                 if (cert == null)
                 {
                     services.AddIdentityServer().AddSigningCredential(cert);
                 }
-            // }
+            }
         }
 
         public void Configure(IApplicationBuilder app)

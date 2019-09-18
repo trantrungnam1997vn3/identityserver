@@ -1519,3 +1519,18 @@ System.InvalidOperationException: Decorator already registered for type: IAuthen
 2019-09-17 14:49:34.320 +07:00 [DBG] Starting grant removal
 2019-09-17 14:52:43.996 +07:00 [DBG] TaskCanceledException. Exiting.
 2019-09-17 14:52:44.006 +07:00 [DBG] Stopping grant removal
+2019-09-18 11:19:49.766 +07:00 [FTL] Application startup exception
+System.InvalidOperationException: Decorator already registered for type: IAuthenticationService.
+   at Microsoft.Extensions.DependencyInjection.IdentityServerBuilderExtensionsCore.AddDecorator[TService](IServiceCollection services)
+   at Microsoft.Extensions.DependencyInjection.IdentityServerBuilderExtensionsCore.AddCookieAuthentication(IIdentityServerBuilder builder)
+   at Microsoft.Extensions.DependencyInjection.IdentityServerServiceCollectionExtensions.AddIdentityServer(IServiceCollection services)
+   at IdentityServer.Startup.ConfigureServices(IServiceCollection services) in D:\Project\identityserver\src\IdentityServer\Startup.cs:line 107
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Hosting.ConventionBasedStartup.ConfigureServices(IServiceCollection services)
+   at Microsoft.AspNetCore.Hosting.Internal.WebHost.EnsureApplicationServices()
+   at Microsoft.AspNetCore.Hosting.Internal.WebHost.Initialize()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Hosting.Internal.WebHost.BuildApplication()
+2019-09-18 11:19:49.846 +07:00 [DBG] Starting grant removal
+2019-09-18 11:20:17.478 +07:00 [DBG] TaskCanceledException. Exiting.
+2019-09-18 11:20:17.489 +07:00 [DBG] Stopping grant removal

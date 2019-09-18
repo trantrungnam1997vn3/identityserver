@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Cryptography.X509Certificates;
 
 namespace IdentityServer
 {
@@ -34,7 +35,7 @@ namespace IdentityServer
             services.AddMvc();
 
             const string connectionString = @"
-                Data Source=DESKTOP-999UR4G;
+                Data Source=DESKTOP-7ML2D8L;
                 Database=IdentityServer4;
                 User ID=sa;
                 Password=sapassword;

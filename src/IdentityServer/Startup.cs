@@ -1,24 +1,17 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using System.Security.Cryptography;
-using System.IO;
-// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
-// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
-
-
-using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
-using IdentityServer4;
-using IdentityServer4.EntityFramework.DbContexts;
-using IdentityServer4.EntityFramework.Mappers;
+
+using System.Security.Cryptography.X509Certificates;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
-using System.Security.Cryptography.X509Certificates;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+
+using IdentityServer4.EntityFramework.DbContexts;
+using IdentityServer4.EntityFramework.Mappers;
+
 
 namespace IdentityServer
 {
@@ -37,7 +30,8 @@ namespace IdentityServer
         {
             services.AddMvc();
 
-            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            // string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            string connectionString = "Data Source=DESKTOP-999UR4G;Database=IdentityServer4;User ID=sa;Password=sapassword;MultipleActiveResultSets=true";
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
 
 
@@ -58,31 +52,27 @@ namespace IdentityServer
                     options.EnableTokenCleanup = true;
                 });
 
-            if (Environment.IsDevelopment())
+            X509Certificate2 cert = null;
+            using (var certStore = new X509Store(StoreName.My, StoreLocation.LocalMachine))
             {
-                builder.AddDeveloperSigningCredential();
-            }
-            else
-            {
-                X509Certificate2 cert = null;
-                using (var certStore = new X509Store(StoreName.Root, StoreLocation.LocalMachine))
-                {
-                    certStore.Open(OpenFlags.ReadOnly);
-                    var certCollection = certStore.Certificates.Find(
-                        X509FindType.FindByThumbprint,
-                        Configuration.GetConnectionString("Thumbprint-Key"),
-                        false
-                    );
+                certStore.Open(OpenFlags.ReadOnly);
+                var certCollection = certStore.Certificates.Find(
+                    X509FindType.FindByThumbprint,
+                    // Configuration.GetConnectionString("Thumbprint-Key"),
+                    "0823a8a79c28a755a73a4fada7cdad306bc1ee99",
+                    false
+                );
 
-                    if (certCollection.Count > 0)
-                    {
-                        cert = certCollection[0];
-                    }
+                var x = Configuration.GetConnectionString("Thumbprint-Key");
+
+                if (certCollection.Count > 0)
+                {
+                    cert = certCollection[0];
                 }
 
-                if (cert == null)
+                if (cert != null)
                 {
-                    services.AddIdentityServer().AddSigningCredential(cert);
+                    builder.AddSigningCredential(cert);
                 }
             }
         }

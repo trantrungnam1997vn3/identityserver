@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Client.Models;
-using Microsoft.AspNetCore.Authorization;
-using System.Net.Http;
-using Microsoft.AspNetCore.Authentication;
+﻿using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+
 using Newtonsoft.Json.Linq;
 
 namespace Client.Controllers

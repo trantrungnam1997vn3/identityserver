@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System.Security.Cryptography.X509Certificates;
+using System.Security.Cryptography;
 using System.IO;
 // Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
@@ -81,17 +82,30 @@ namespace IdentityServer
 
             // if (Environment.IsDevelopment())
             // {
-            builder.AddDeveloperSigningCredential();
+            //     builder.AddDeveloperSigningCredential();
             // }
             // else
             // {
-            //     // throw new Exception("need to configure key material");
-            //     Console.WriteLine(Environment.WebRootPath);
-            //     var fileName = Path.Combine(Environment.WebRootPath, "tempkey.rsa");
-            //     if (!File.Exists(fileName))
-            //     {
-            //         builder.AddSigningCredential(fileName);
-            //     }
+                X509Certificate2 cert = null;
+                using (var certStore = new X509Store(StoreName.Root, StoreLocation.LocalMachine))
+                 
+                    certStore.Open(OpenFlags.ReadOnly);
+                    var certCollection = certStore.Certificates.Find(
+                        X509FindType.FindByThumbprint,
+                        "1a6712fc72aa71224676373d3bcc5ce9ca1f2fb8",
+                        false
+                    );
+
+                    if (certCollection.Count > 0)
+                    {
+                        cert = certCollection[0];
+                    }
+                }
+                
+                if (cert == null)
+                {
+                    services.AddIdentityServer().AddSigningCredential(cert);
+                }
             // }
         }
 

@@ -1440,3 +1440,82 @@ Microsoft.AspNetCore.Antiforgery.AntiforgeryValidationException: The antiforgery
 2019-09-16 15:08:56.724 +07:00 [DBG] End userinfo request
 2019-09-16 15:29:01.381 +07:00 [DBG] Stopping grant removal
 2019-09-16 15:29:01.383 +07:00 [DBG] TaskCanceledException. Exiting.
+2019-09-16 16:47:43.786 +07:00 [WRN] Using an in-memory repository. Keys will not be persisted to storage.
+2019-09-16 16:47:43.808 +07:00 [WRN] Neither user profile nor HKLM registry available. Using an ephemeral key repository. Protected data will be unavailable when application exits.
+2019-09-16 16:47:43.821 +07:00 [WRN] No XML encryptor configured. Key "86b643fc-c7ad-4d3f-bf9e-44032fbe02d5" may be persisted to storage in unencrypted form.
+2019-09-16 16:47:45.377 +07:00 [INF] Starting IdentityServer4 version 2.5.0.0
+2019-09-16 16:47:45.393 +07:00 [INF] Using the default authentication scheme idsrv for IdentityServer
+2019-09-16 16:47:45.394 +07:00 [DBG] Using idsrv as default ASP.NET Core scheme for authentication
+2019-09-16 16:47:45.394 +07:00 [DBG] Using idsrv as default ASP.NET Core scheme for sign-in
+2019-09-16 16:47:45.394 +07:00 [DBG] Using idsrv as default ASP.NET Core scheme for sign-out
+2019-09-16 16:47:45.394 +07:00 [DBG] Using idsrv as default ASP.NET Core scheme for challenge
+2019-09-16 16:47:45.394 +07:00 [DBG] Using idsrv as default ASP.NET Core scheme for forbid
+2019-09-16 16:47:45.475 +07:00 [DBG] Starting grant removal
+2019-09-16 16:47:45.713 +07:00 [DBG] Login Url: /Account/Login
+2019-09-16 16:47:45.715 +07:00 [DBG] Login Return Url Parameter: ReturnUrl
+2019-09-16 16:47:45.715 +07:00 [DBG] Logout Url: /Account/Logout
+2019-09-16 16:47:45.715 +07:00 [DBG] ConsentUrl Url: /consent
+2019-09-16 16:47:45.715 +07:00 [DBG] Consent Return Url Parameter: returnUrl
+2019-09-16 16:47:45.715 +07:00 [DBG] Error Url: /home/error
+2019-09-16 16:47:45.715 +07:00 [DBG] Error Id Parameter: errorId
+2019-09-16 16:47:45.721 +07:00 [INF] idsrv was not authenticated. Failure message: Unprotect ticket failed
+2019-09-16 16:47:45.737 +07:00 [INF] idsrv was not authenticated. Failure message: Unprotect ticket failed
+2019-09-16 16:47:45.825 +07:00 [INF] Homepage is disabled in production. Returning 404.
+2019-09-16 16:47:49.218 +07:00 [INF] idsrv was not authenticated. Failure message: Unprotect ticket failed
+2019-09-16 16:47:49.218 +07:00 [INF] idsrv was not authenticated. Failure message: Unprotect ticket failed
+2019-09-16 16:47:49.316 +07:00 [ERR] An exception was thrown while deserializing the token.
+Microsoft.AspNetCore.Antiforgery.AntiforgeryValidationException: The antiforgery token could not be decrypted. ---> System.Security.Cryptography.CryptographicException: The key {ad657c10-9313-4ae0-bffe-c5070eedeefe} was not found in the key ring.
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.DangerousUnprotect(Byte[] protectedData, Boolean ignoreRevocationErrors, Boolean& requiresMigration, Boolean& wasRevoked)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.Antiforgery.Internal.DefaultAntiforgeryTokenSerializer.Deserialize(String serializedToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Antiforgery.Internal.DefaultAntiforgeryTokenSerializer.Deserialize(String serializedToken)
+   at Microsoft.AspNetCore.Antiforgery.Internal.DefaultAntiforgery.GetCookieTokenDoesNotThrow(HttpContext httpContext)
+2019-09-16 16:47:53.726 +07:00 [DBG] Stopping grant removal
+2019-09-16 16:47:53.727 +07:00 [DBG] TaskCanceledException. Exiting.
+2019-09-17 14:31:39.074 +07:00 [FTL] Application startup exception
+System.InvalidOperationException: Decorator already registered for type: IAuthenticationService.
+   at Microsoft.Extensions.DependencyInjection.IdentityServerBuilderExtensionsCore.AddDecorator[TService](IServiceCollection services)
+   at Microsoft.Extensions.DependencyInjection.IdentityServerBuilderExtensionsCore.AddCookieAuthentication(IIdentityServerBuilder builder)
+   at Microsoft.Extensions.DependencyInjection.IdentityServerServiceCollectionExtensions.AddIdentityServer(IServiceCollection services)
+   at IdentityServer.Startup.ConfigureServices(IServiceCollection services) in D:\Project\identityserver\src\IdentityServer\Startup.cs:line 107
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Hosting.ConventionBasedStartup.ConfigureServices(IServiceCollection services)
+   at Microsoft.AspNetCore.Hosting.Internal.WebHost.EnsureApplicationServices()
+   at Microsoft.AspNetCore.Hosting.Internal.WebHost.Initialize()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Hosting.Internal.WebHost.BuildApplication()
+2019-09-17 14:31:39.173 +07:00 [DBG] Starting grant removal
+2019-09-17 14:45:12.118 +07:00 [DBG] TaskCanceledException. Exiting.
+2019-09-17 14:45:12.152 +07:00 [DBG] Stopping grant removal
+2019-09-17 14:46:27.936 +07:00 [FTL] Application startup exception
+System.InvalidOperationException: Decorator already registered for type: IAuthenticationService.
+   at Microsoft.Extensions.DependencyInjection.IdentityServerBuilderExtensionsCore.AddDecorator[TService](IServiceCollection services)
+   at Microsoft.Extensions.DependencyInjection.IdentityServerBuilderExtensionsCore.AddCookieAuthentication(IIdentityServerBuilder builder)
+   at Microsoft.Extensions.DependencyInjection.IdentityServerServiceCollectionExtensions.AddIdentityServer(IServiceCollection services)
+   at IdentityServer.Startup.ConfigureServices(IServiceCollection services) in D:\Project\identityserver\src\IdentityServer\Startup.cs:line 107
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Hosting.ConventionBasedStartup.ConfigureServices(IServiceCollection services)
+   at Microsoft.AspNetCore.Hosting.Internal.WebHost.EnsureApplicationServices()
+   at Microsoft.AspNetCore.Hosting.Internal.WebHost.Initialize()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Hosting.Internal.WebHost.BuildApplication()
+2019-09-17 14:46:27.999 +07:00 [DBG] Starting grant removal
+2019-09-17 14:49:07.397 +07:00 [DBG] TaskCanceledException. Exiting.
+2019-09-17 14:49:07.406 +07:00 [DBG] Stopping grant removal
+2019-09-17 14:49:34.244 +07:00 [FTL] Application startup exception
+System.InvalidOperationException: Decorator already registered for type: IAuthenticationService.
+   at Microsoft.Extensions.DependencyInjection.IdentityServerBuilderExtensionsCore.AddDecorator[TService](IServiceCollection services)
+   at Microsoft.Extensions.DependencyInjection.IdentityServerBuilderExtensionsCore.AddCookieAuthentication(IIdentityServerBuilder builder)
+   at Microsoft.Extensions.DependencyInjection.IdentityServerServiceCollectionExtensions.AddIdentityServer(IServiceCollection services)
+   at IdentityServer.Startup.ConfigureServices(IServiceCollection services) in D:\Project\identityserver\src\IdentityServer\Startup.cs:line 107
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Hosting.ConventionBasedStartup.ConfigureServices(IServiceCollection services)
+   at Microsoft.AspNetCore.Hosting.Internal.WebHost.EnsureApplicationServices()
+   at Microsoft.AspNetCore.Hosting.Internal.WebHost.Initialize()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Hosting.Internal.WebHost.BuildApplication()
+2019-09-17 14:49:34.320 +07:00 [DBG] Starting grant removal
+2019-09-17 14:52:43.996 +07:00 [DBG] TaskCanceledException. Exiting.
+2019-09-17 14:52:44.006 +07:00 [DBG] Stopping grant removal

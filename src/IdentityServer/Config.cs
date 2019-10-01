@@ -87,13 +87,14 @@ namespace IdentityServer
                 {
                     ClientId = "mvc",
                     ClientName = "MVC Client",
-                    AllowedGrantTypes =  GrantTypes.Hybrid,
+                    AllowedGrantTypes =  GrantTypes.ResourceOwnerPassword,
                     ClientSecrets =
                     {
                         new Secret("secret".Sha256())
                     },
-                    RedirectUris           = { "http://localhost:5002/signin-oidc" },
-                    PostLogoutRedirectUris = { "http://localhost:5002/signout-callback-oidc" },
+                    RedirectUris           = { "http://10.0.1.226:5002/signin-oidc" },
+                    PostLogoutRedirectUris = { "http://10.0.1.226:5002/signout-callback-oidc" },
+                    AllowedCorsOrigins = new[] {"http://localhost:5000"},
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
@@ -101,6 +102,29 @@ namespace IdentityServer
                         "api1"
                     },
                     AllowOfflineAccess = true
+                },
+
+                new Client
+                {
+                    ClientId = "api",
+                    ClientName = "api",
+                    AllowedGrantTypes =  GrantTypes.ResourceOwnerPassword,
+                    AllowAccessTokensViaBrowser = true,
+                    ClientSecrets =
+                    {
+                        new Secret("secret".Sha256())
+                    },
+                    RedirectUris           = { "http://10.0.1.226:5001/signin-oidc" },
+                    PostLogoutRedirectUris = { "http://10.0.1.226:5002/signout-callback-oidc" },
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "api1"
+                    },
+                    AllowedCorsOrigins = new[] {"http://localhost:5000", "http://10.0.1.226:5000"},
+                    AllowOfflineAccess = true,
+                    RequireConsent = false
                 },
                 new Client
                 {

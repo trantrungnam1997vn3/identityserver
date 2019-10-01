@@ -29,11 +29,10 @@ namespace IdentityServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-
-            // string connectionString = Configuration.GetConnectionString("DefaultConnection");
-            string connectionString = "Data Source=DESKTOP-999UR4G;Database=IdentityServer4;User ID=sa;Password=sapassword;MultipleActiveResultSets=true";
+            services.AddCors();
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            // string connectionString = "Data Source=DESKTOP-999UR4G;Database=IdentityServer4;User ID=sa;Password=sapassword;MultipleActiveResultSets=true";
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
-
 
             var builder = services.AddIdentityServer()
                 .AddTestUsers(Config.GetUsers())
@@ -58,8 +57,8 @@ namespace IdentityServer
                 certStore.Open(OpenFlags.ReadOnly);
                 var certCollection = certStore.Certificates.Find(
                     X509FindType.FindByThumbprint,
-                    // Configuration.GetConnectionString("Thumbprint-Key"),
-                    "0823a8a79c28a755a73a4fada7cdad306bc1ee99",
+                    Configuration.GetConnectionString("Thumbprint-Key"),
+                    // "0823a8a79c28a755a73a4fada7cdad306bc1ee99",
                     false
                 );
 
@@ -87,6 +86,11 @@ namespace IdentityServer
             app.UseStaticFiles();
             app.UseIdentityServer();
             app.UseMvcWithDefaultRoute();
+             app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials());
         }
 
         private void InitializeDatabase(IApplicationBuilder app)
